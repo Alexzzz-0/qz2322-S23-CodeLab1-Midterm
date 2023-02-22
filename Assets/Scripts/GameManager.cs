@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A)|| Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W))
         {
             gameMode = GameType.Clean;
         }
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.S))
         {
-            Debug.Log(" detect player move ");
+            //Debug.Log(" detect player move ");
             transform.Find(playerControllerHolder).GetComponent<playerController>().MoveOrTurn(tileLength);
         }
        

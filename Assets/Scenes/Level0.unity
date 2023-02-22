@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5984138cbd55a4bbcb4ee7c3bb2a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMode: 0
+  gameMode: 1
   sceneIsEmpty: 1
   playerIsEmpty: 0
   tile: {fileID: 1226556997530800903, guid: dbf71d44f64b4eb4cad4aed806e26d98, type: 3}

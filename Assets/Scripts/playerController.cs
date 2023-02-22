@@ -38,8 +38,8 @@ public class playerController : MonoBehaviour
             else
             {
                 Debug.Log("Turn Left!");
-                player.GetComponent<player>().Turn(playerFace);
                 playerFace = playerDirection.left;
+                player.GetComponent<player>().assignTurnFace(playerFace);
             }
         }
 
@@ -53,8 +53,8 @@ public class playerController : MonoBehaviour
             else
             {
                 Debug.Log("Turn Right!");
-                player.GetComponent<player>().Turn(playerFace);
                 playerFace = playerDirection.right;
+                player.GetComponent<player>().assignTurnFace(playerFace);
             }
         }
 
@@ -68,8 +68,8 @@ public class playerController : MonoBehaviour
             else
             {
                 Debug.Log("Turn Up!");
-                player.GetComponent<player>().Turn(playerFace);
                 playerFace = playerDirection.up;
+                player.GetComponent<player>().assignTurnFace(playerFace);
             }
         }
 
@@ -83,8 +83,8 @@ public class playerController : MonoBehaviour
             else
             {
                 Debug.Log("Turn Down!");
-                player.GetComponent<player>().Turn(playerFace);
                 playerFace = playerDirection.down;
+                player.GetComponent<player>().assignTurnFace(playerFace);
             }
         }
     }
