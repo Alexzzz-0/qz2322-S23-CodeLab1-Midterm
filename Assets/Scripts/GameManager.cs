@@ -7,6 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
@@ -131,19 +132,17 @@ public class GameManager : MonoBehaviour
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private const string playerControllerHolder = "PlayerControllerHolder";
 
-    public bool playerIsExecuting = false;
+    
     void Clean()
     {
-        if (playerIsExecuting == false)
-        {
+        
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W) ||
                 Input.GetKeyDown(KeyCode.S))
             {
                 //Debug.Log(" detect player move ");
-                playerIsExecuting = true;
                 transform.Find(playerControllerHolder).GetComponent<playerController>().MoveOrTurn(tileLength);
             }
-        }
+        
 
 
     }

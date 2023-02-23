@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 
 public class GenerateTiles : MonoBehaviour
 {
+    //these are the variables that control how many times of tiles are generated each level
     public int tileMaxX = 6;
     public int tileMaxY = 6;
 
@@ -15,6 +16,7 @@ public class GenerateTiles : MonoBehaviour
     public GameObject dirt;
     public GameObject edge;
 
+    //it is the variable that returns the player's start position to game manager script
     public float tileStartX;
 
     public void GenerateTile(int level, float startPositionX, float startPositionY, float tileLength)

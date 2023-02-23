@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRb: {fileID: -8092392313500436376}
-  speedMove: 1
-  speedTurn: 0.5
+  speedMove: 0.1
+  speedTurn: 0.1
 --- !u!50 &-8092392313500436376
 Rigidbody2D:
   serializedVersion: 4

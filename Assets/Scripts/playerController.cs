@@ -23,23 +23,34 @@ public class playerController : MonoBehaviour
     private playerDirection playerFace = playerDirection.right;
 
     private GameObject player;
+
+    public bool isExecutingTurn = false;
+    public bool isExecutingMove = false;
     
     public void MoveOrTurn(float moveLength)
     {
         player = GameObject.FindWithTag("Player");
-
+        
         if (Input.GetKeyDown(KeyCode.A))
         {
             if (playerFace == playerDirection.left)
             {
-                Debug.Log("Move Left!");
-                player.GetComponent<player>().Move(moveLength);
+                if (isExecutingTurn == false)
+                {
+                    Debug.Log("Move Left!");
+                    isExecutingMove = true;
+                    StartCoroutine(player.GetComponent<player>().Move(moveLength));
+                }
             }
             else
             {
-                Debug.Log("Turn Left!");
-                playerFace = playerDirection.left;
-                player.GetComponent<player>().assignTurnFace(playerFace);
+                if (isExecutingMove == false)
+                {
+                    Debug.Log("Turn Left!");
+                    isExecutingTurn = true;
+                    playerFace = playerDirection.left;
+                    player.GetComponent<player>().assignTurnFace(playerFace);
+                }
             }
         }
 
@@ -47,14 +58,22 @@ public class playerController : MonoBehaviour
         {
             if (playerFace == playerDirection.right)
             {
-                Debug.Log("Move Right!");
-                player.GetComponent<player>().Move(moveLength);
+                if (isExecutingTurn == false)
+                {
+                    Debug.Log("Move Right!");
+                    isExecutingMove = true;
+                    StartCoroutine(player.GetComponent<player>().Move(moveLength));
+                }
             }
             else
             {
-                Debug.Log("Turn Right!");
-                playerFace = playerDirection.right;
-                player.GetComponent<player>().assignTurnFace(playerFace);
+                if (isExecutingMove == false)
+                {
+                    Debug.Log("Turn Right!");
+                    isExecutingTurn = true;
+                    playerFace = playerDirection.right;
+                    player.GetComponent<player>().assignTurnFace(playerFace);
+                }
             }
         }
 
@@ -62,14 +81,22 @@ public class playerController : MonoBehaviour
         {
             if (playerFace == playerDirection.up)
             {
-                Debug.Log("Move Up!");
-                player.GetComponent<player>().Move(moveLength);
+                if (isExecutingTurn == false)
+                {
+                    Debug.Log("Move Up!");
+                    isExecutingMove = true;
+                    StartCoroutine(player.GetComponent<player>().Move(moveLength));
+                }
             }
             else
             {
-                Debug.Log("Turn Up!");
-                playerFace = playerDirection.up;
-                player.GetComponent<player>().assignTurnFace(playerFace);
+                if (isExecutingMove == false)
+                {
+                    Debug.Log("Turn Up!");
+                    isExecutingTurn = true;
+                    playerFace = playerDirection.up;
+                    player.GetComponent<player>().assignTurnFace(playerFace);
+                }
             }
         }
 
@@ -77,14 +104,22 @@ public class playerController : MonoBehaviour
         {
             if (playerFace == playerDirection.down)
             {
-                Debug.Log("Move Down!");
-                player.GetComponent<player>().Move(moveLength);
+                if (isExecutingTurn == false)
+                {
+                    Debug.Log("Move Down!");
+                    isExecutingMove = true;
+                    StartCoroutine(player.GetComponent<player>().Move(moveLength));
+                }
             }
             else
             {
-                Debug.Log("Turn Down!");
-                playerFace = playerDirection.down;
-                player.GetComponent<player>().assignTurnFace(playerFace);
+                if (isExecutingMove == false)
+                {
+                    Debug.Log("Turn Down!");
+                    isExecutingTurn = true;
+                    playerFace = playerDirection.down;
+                    player.GetComponent<player>().assignTurnFace(playerFace);
+                }
             }
         }
     }

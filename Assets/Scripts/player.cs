@@ -8,8 +8,7 @@ using UnityEngine;
 public class player : MonoBehaviour
 {
     public Rigidbody2D playerRb;
-    private Vector3 moveToPos;
-    private Vector3 moveDis;
+    
     public float speedMove;
     public float speedTurn;
 
@@ -54,23 +53,27 @@ public class player : MonoBehaviour
         //instead of only printing out the outcomes
         //Debug.Log("Turn listener!");
         int agle = 90;
-        
-        for (float i = 0; i <= 1; i += (Time.deltaTime * speedTurn))
+
+        for (float i = 0; i <= 1; i += speedTurn)
         {
-            Debug.Log(i.ToString());
+            //Debug.Log(i.ToString());
             //transform.rotation = Quaternion.Euler(Vector3.forward * (agle * n * (i  / speedTurn)));
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(Vector3.forward * (agle * n)), i);
+            GameManager.instance.transform.Find("PlayerControllerHolder").GetComponent<playerController>()
+                .isExecutingTurn = false;
             yield return null;
         }
 
-        GameManager.instance.playerIsExecuting = false;
+        
         //this data skip the layer of assignTurnFace(), moveOrTurn()
         //directly responses to <Gamemanager>().Clean();
         //which is to control it not to assign next task to the player
     }
     
     
-    public void Move( float moveLength)
+    private Vector3 moveToPos;
+    private Vector3 moveDis;
+    public IEnumerator Move( float moveLength)
     {
         //Debug.Log("Move Listener!");
         
@@ -78,6 +81,25 @@ public class player : MonoBehaviour
         // moveToPos = Vector3.Lerp(transform.position, moveDis, Time.deltaTime*speedMove);
         // playerRb.MovePosition(moveToPos);
         // //playerRb.MovePosition(moveDis);
-        
+
+        Vector3 playerPos = transform.position;
+        // moveDis = transform.forward * moveLength;
+        // Debug.Log("transform.forward.x: "+transform.forward.x.ToString());
+        // Debug.Log("transform.forwand.y: " + transform.forward.y.ToString());
+        moveDis = transform.rotation * new Vector3(moveLength, 0, 0);
+        moveToPos = playerPos + moveDis;
+        playerRb.MovePosition(moveToPos);
+        Debug.Log("moveDis.x: "+moveDis.x);
+        GameManager.instance.transform.Find("PlayerControllerHolder").GetComponent<playerController>()
+            .isExecutingMove = false;
+        yield return null;
+
+        // for (float i = 0; i <= 1; i += speedMove)
+        // {
+        //     moveToPos = Vector3.Lerp(playerPos, playerPos + moveDis, i);
+        //     Debug.Log(moveToPos.x.ToString());
+        //     playerRb.MovePosition(moveToPos);
+        //     yield return null;
+        // }
     }
 }
