@@ -131,15 +131,21 @@ public class GameManager : MonoBehaviour
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private const string playerControllerHolder = "PlayerControllerHolder";
 
+    public bool playerIsExecuting = false;
     void Clean()
     {
-        if (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.S))
+        if (playerIsExecuting == false)
         {
-            //Debug.Log(" detect player move ");
-            transform.Find(playerControllerHolder).GetComponent<playerController>().MoveOrTurn(tileLength);
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W) ||
+                Input.GetKeyDown(KeyCode.S))
+            {
+                //Debug.Log(" detect player move ");
+                playerIsExecuting = true;
+                transform.Find(playerControllerHolder).GetComponent<playerController>().MoveOrTurn(tileLength);
+            }
         }
-       
-        
+
+
     }
     void UnUsed(){}
     void Store(){}

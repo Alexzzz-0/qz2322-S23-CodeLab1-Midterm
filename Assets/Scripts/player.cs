@@ -13,6 +13,7 @@ public class player : MonoBehaviour
     public float speedMove;
     public float speedTurn;
 
+    
     private void Update()
     {
         //transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0, 0, agle * n), Time.deltaTime * speedTurn ); 
@@ -44,24 +45,28 @@ public class player : MonoBehaviour
         }
 
         StartCoroutine(Turn());
-        //transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0, 0, agle * n), Time.deltaTime * speedTurn );
     }
 
     IEnumerator Turn()
     {
-        Debug.Log("Turn listener!");
+        // the for is a timer, which controls the player to turn slowly
+        //coroutine and return null ensure that this function will be printed each frame
+        //instead of only printing out the outcomes
+        //Debug.Log("Turn listener!");
         int agle = 90;
         
-        for (float i = 0; i <= 1; i +=Time.deltaTime)
+        for (float i = 0; i <= 1; i += (Time.deltaTime * speedTurn))
         {
             Debug.Log(i.ToString());
             //transform.rotation = Quaternion.Euler(Vector3.forward * (agle * n * (i  / speedTurn)));
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(Vector3.forward * (agle * n)), i);
             yield return null;
         }
-        
-        //this one works
-        //transform.rotation = Quaternion.Euler(Vector3.forward * (agle * n ));
+
+        GameManager.instance.playerIsExecuting = false;
+        //this data skip the layer of assignTurnFace(), moveOrTurn()
+        //directly responses to <Gamemanager>().Clean();
+        //which is to control it not to assign next task to the player
     }
     
     
