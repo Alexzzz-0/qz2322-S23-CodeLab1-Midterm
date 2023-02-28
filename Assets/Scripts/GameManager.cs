@@ -117,16 +117,17 @@ public class GameManager : MonoBehaviour
     //a class to hold the code for calling the class of generating tiles, for make an invoke
     void GenerateTile()
     {
-        transform.Find(generateTileHolder).GetComponent<GenerateTiles>().GenerateTile(1 + SceneManager.GetActiveScene().buildIndex,
-            startPositionX,startPositionY,tileLength);
+        //transform.Find(generateTileHolder).GetComponent<GenerateTiles>().GenerateTile(1 + SceneManager.GetActiveScene().buildIndex,
+            //startPositionX,startPositionY,tileLength);
+            transform.Find(generateTileHolder).GetComponent<GenerateTiles>().GenerateTileNew();
     }
 
-    void GeneratePlayer()
-    {
-        float playerStartX = transform.Find(generateTileHolder).GetComponent<GenerateTiles>().tileStartX;
-        float playerStartY = startPositionY;
-        transform.Find(generateTileHolder).GetComponent<GenerateTiles>().GeneratePlayer(playerStartX, playerStartY, player);
-    }
+    // void GeneratePlayer()
+    // {
+    //     float playerStartX = transform.Find(generateTileHolder).GetComponent<GenerateTiles>().tileStartX;
+    //     float playerStartY = startPositionY;
+    //     transform.Find(generateTileHolder).GetComponent<GenerateTiles>().GeneratePlayer(playerStartX, playerStartY, player);
+    // }
 
     /// clean caller
     /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
