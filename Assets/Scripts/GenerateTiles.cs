@@ -17,8 +17,7 @@ public class GenerateTiles : MonoBehaviour
     public GameObject dirt;
     public GameObject edge;
     public GameObject player;
-
-    private int levelNum = 1;
+    
 
     private const string FILE_PATH = "/Levels/";
 
@@ -28,7 +27,7 @@ public class GenerateTiles : MonoBehaviour
     //it is the variable that returns the player's start position to game manager script
     public float tileStartX;
 
-    public void GenerateTileNew()
+    public void GenerateTileNew(int levelNum)
     {
         //create a file
         //create the path
@@ -40,7 +39,6 @@ public class GenerateTiles : MonoBehaviour
             //w:wall F:floor(floor+dust) p:player(player+floor)
 
             List<string> levelList = new List<string>();
-            levelNum = 1;
 
             //generate the up edge
             for (int width = 0; width < levelNum * tileMaxX; width++)
@@ -50,6 +48,7 @@ public class GenerateTiles : MonoBehaviour
             
             levelList.Add("\n");
             
+            //generate by y
             for (int j = 0; j < levelNum * tileMaxY -1; j++)
             {
                 //for every row, generate a new random number
@@ -109,7 +108,7 @@ public class GenerateTiles : MonoBehaviour
             {
                 File.AppendAllText(DATA_PATH,levelList[q]);
             }
-            
+
         }
 
 

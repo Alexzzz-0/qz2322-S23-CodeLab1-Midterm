@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour
     public float startPositionY = -1f;
 
     public GameObject player;
+
+    public int level;
     
     private void Start()
     {
@@ -119,18 +121,11 @@ public class GameManager : MonoBehaviour
     {
         //transform.Find(generateTileHolder).GetComponent<GenerateTiles>().GenerateTile(1 + SceneManager.GetActiveScene().buildIndex,
             //startPositionX,startPositionY,tileLength);
-            transform.Find(generateTileHolder).GetComponent<GenerateTiles>().GenerateTileNew();
+            transform.Find(generateTileHolder).GetComponent<GenerateTiles>().GenerateTileNew(level);
+            Debug.Log(level.ToString());
     }
 
-    // void GeneratePlayer()
-    // {
-    //     float playerStartX = transform.Find(generateTileHolder).GetComponent<GenerateTiles>().tileStartX;
-    //     float playerStartY = startPositionY;
-    //     transform.Find(generateTileHolder).GetComponent<GenerateTiles>().GeneratePlayer(playerStartX, playerStartY, player);
-    // }
-
-    /// clean caller
-    /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     private const string playerControllerHolder = "PlayerControllerHolder";
 
     
