@@ -93,26 +93,34 @@ public class GameManager : MonoBehaviour
 
     void Generate()
     {
-        //if....load new scene
-        if (Input.GetKeyDown(KeyCode.H))//TODO: setup the transition point
-        {
-            transform.Find(generateSceneObject).GetComponent<GenerateScenes>().GenerateScene();
-        }
-
-        //if....generate tiles
+        // //if....load new scene
+        // if (Input.GetKeyDown(KeyCode.H))//TODO: setup the transition point
+        // {
+        //     transform.Find(generateSceneObject).GetComponent<GenerateScenes>().GenerateScene();
+        // }
+        //
+        // //if....generate tiles
+        // if (sceneIsEmpty)
+        // {
+        //     //bc the scene loads too slow, we should put a small delay at generating the tiles
+        //     //or when the scene is loading, the tile has been generated and when get to the new scene, it is empty
+        //     Invoke("GenerateTile",.1f);
+        //     sceneIsEmpty = false;
+        //     playerIsEmpty = true;
+        // }
+        //
+        // if (playerIsEmpty == true)
+        // {
+        //     Invoke("GeneratePlayer", .2f);
+        //     playerIsEmpty = false;
+        // }
+        
+        //test: I want to generate the tile 
         if (sceneIsEmpty)
         {
-            //bc the scene loads too slow, we should put a small delay at generating the tiles
-            //or when the scene is loading, the tile has been generated and when get to the new scene, it is empty
-            Invoke("GenerateTile",.1f);
+            transform.Find(generateTileHolder).GetComponent<GenerateTiles>().referenceFile(level);
+            transform.Find(generateTileHolder).GetComponent<GenerateTiles>().InstantiateFromFile(level,tileLength);
             sceneIsEmpty = false;
-            playerIsEmpty = true;
-        }
-
-        if (playerIsEmpty == true)
-        {
-            Invoke("GeneratePlayer", .2f);
-            playerIsEmpty = false;
         }
     }
 
@@ -121,7 +129,7 @@ public class GameManager : MonoBehaviour
     {
         //transform.Find(generateTileHolder).GetComponent<GenerateTiles>().GenerateTile(1 + SceneManager.GetActiveScene().buildIndex,
             //startPositionX,startPositionY,tileLength);
-            transform.Find(generateTileHolder).GetComponent<GenerateTiles>().GenerateTileNew(level);
+            transform.Find(generateTileHolder).GetComponent<GenerateTiles>().referenceFile(level);
             Debug.Log(level.ToString());
     }
 

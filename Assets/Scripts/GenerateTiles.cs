@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
@@ -25,9 +26,12 @@ public class GenerateTiles : MonoBehaviour
     private int leftBlankNumber;
     
     //it is the variable that returns the player's start position to game manager script
-    public float tileStartX;
+    //public float tileStartX;
 
-    public void GenerateTileNew(int levelNum)
+    public float startXPos;
+    public float startYPos;
+
+    public void referenceFile(int levelNum)
     {
         //create a file
         //create the path
@@ -110,14 +114,79 @@ public class GenerateTiles : MonoBehaviour
             }
 
         }
+    }
 
-
+    public void InstantiateFromFile(int level, float tileLength)
+    {
+        GameObject levelParent = new GameObject("LEVEL" + level.ToString());
         
-        //create a list to have the signs reflect to the object
-        //make the level under one specific parent object
-        //delete the previous object
+        //search file path
+        string DATA_PATH = Application.dataPath + "/Levels/" + "Level" + level.ToString() + ".txt";
+        //read from file path
+        //make it an array for lines
+        string[] fileLines = File.ReadAllLines(DATA_PATH);
+
+        //for each line (a box for an array)
+        for (int yPos = 0; yPos < fileLines.Length; yPos++)
+        {
+            //make it to an array of chars
+            char[] lineChars = fileLines[yPos].ToCharArray();
+            for (int xPos = 0; xPos < lineChars.Length; xPos++)
+            {
+                //for each char
+                Char c = lineChars[xPos];
+
+                //generate corresponding objects
+                //w:wall F:floor(floor+dust) p:player(player+floor)
+                switch (c)
+                {
+                    case 'w':
+                        GameObject wall = Instantiate(edge);
+                        wall.transform.position = TilePos(xPos, yPos, tileLength);
+                        wall.transform.parent = levelParent.transform;
+                        break;
+                    case 'F':
+                        GameObject floorTile = Instantiate(tile);
+                        floorTile.transform.position = TilePos(xPos, yPos, tileLength);
+                        floorTile.transform.parent = levelParent.transform;
+
+                        GameObject floorDust = Instantiate(dirt);
+                        floorDust.transform.position = TilePos(xPos, yPos, tileLength);
+                        floorDust.transform.parent = levelParent.transform;
+                        break;
+                    case 'p':
+                        GameObject floor = Instantiate(tile);
+                        floor.transform.position = TilePos(xPos, yPos, tileLength);
+                        floor.transform.parent = levelParent.transform;
+
+                        GameObject playerNew = Instantiate(player);
+                        playerNew.transform.position = TilePos(xPos, yPos, tileLength);
+                        playerNew.transform.parent = levelParent.transform;
+                        break;
+                }
+            }
+        }
+    }
+
+    private Vector3 TilePos(int xPos, int yPos, float tileLength)
+    {
+        Vector3 pos;
+        pos = new Vector3(startXPos + xPos * tileLength, startYPos - yPos * tileLength);
+        return pos;
     }
     
+
+    // public void InstantiateTile()
+    // {
+    //     //define data path
+    //     //read the text in the file
+    //     
+    //     
+    //     //make the level under one specific parent object
+    //     //delete the previous object
+    // }
+
+
     //
     // public void GenerateTile(int level, float startPositionX, float startPositionY, float tileLength)
     // {
