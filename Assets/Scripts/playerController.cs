@@ -37,7 +37,7 @@ public class playerController : MonoBehaviour
             {
                 if (isExecutingTurn == false)
                 {
-                    Debug.Log("Move Left!");
+                    //Debug.Log("Move Left!");
                     isExecutingMove = true;
                     StartCoroutine(player.GetComponent<player>().Move(moveLength));
                 }
@@ -46,7 +46,7 @@ public class playerController : MonoBehaviour
             {
                 if (isExecutingMove == false)
                 {
-                    Debug.Log("Turn Left!");
+                    //Debug.Log("Turn Left!");
                     isExecutingTurn = true;
                     playerFace = playerDirection.left;
                     player.GetComponent<player>().assignTurnFace(playerFace);
@@ -60,7 +60,7 @@ public class playerController : MonoBehaviour
             {
                 if (isExecutingTurn == false)
                 {
-                    Debug.Log("Move Right!");
+                    //Debug.Log("Move Right!");
                     isExecutingMove = true;
                     StartCoroutine(player.GetComponent<player>().Move(moveLength));
                 }
@@ -69,7 +69,7 @@ public class playerController : MonoBehaviour
             {
                 if (isExecutingMove == false)
                 {
-                    Debug.Log("Turn Right!");
+                    //Debug.Log("Turn Right!");
                     isExecutingTurn = true;
                     playerFace = playerDirection.right;
                     player.GetComponent<player>().assignTurnFace(playerFace);
@@ -83,7 +83,7 @@ public class playerController : MonoBehaviour
             {
                 if (isExecutingTurn == false)
                 {
-                    Debug.Log("Move Up!");
+                    //Debug.Log("Move Up!");
                     isExecutingMove = true;
                     StartCoroutine(player.GetComponent<player>().Move(moveLength));
                 }
@@ -92,7 +92,7 @@ public class playerController : MonoBehaviour
             {
                 if (isExecutingMove == false)
                 {
-                    Debug.Log("Turn Up!");
+                    //Debug.Log("Turn Up!");
                     isExecutingTurn = true;
                     playerFace = playerDirection.up;
                     player.GetComponent<player>().assignTurnFace(playerFace);
@@ -106,7 +106,7 @@ public class playerController : MonoBehaviour
             {
                 if (isExecutingTurn == false)
                 {
-                    Debug.Log("Move Down!");
+                    //Debug.Log("Move Down!");
                     isExecutingMove = true;
                     StartCoroutine(player.GetComponent<player>().Move(moveLength));
                 }
@@ -115,7 +115,7 @@ public class playerController : MonoBehaviour
             {
                 if (isExecutingMove == false)
                 {
-                    Debug.Log("Turn Down!");
+                    //Debug.Log("Turn Down!");
                     isExecutingTurn = true;
                     playerFace = playerDirection.down;
                     player.GetComponent<player>().assignTurnFace(playerFace);

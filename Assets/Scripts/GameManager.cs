@@ -61,15 +61,9 @@ public class GameManager : MonoBehaviour
 
         }
     }
-
-    // private bool sceneIsEmpty = true;
-    // public bool SceneIsEmpty
-    // {
-    //     get { return sceneIsEmpty; }
-    //     set { sceneIsEmpty = value; }
-    // }
+    
     public bool sceneIsEmpty = true;
-    public bool playerIsEmpty = false;
+    public bool fileIsEmpty = false;
     
     public GameObject tile;
     private float tileLength;
@@ -79,59 +73,55 @@ public class GameManager : MonoBehaviour
     public GameObject player;
 
     public int level;
+
+    public int dustNumLeft;
+    public int dustNumSolved;
     
     private void Start()
     {
         tileLength = tile.transform.GetComponent<Renderer>().bounds.size.x;
     }
     
-    /// Generate caller
-    /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
     private const string generateSceneObject = "GenerateSceneHolder";
     private const string generateTileHolder = "GenerateTileHolder";
 
     void Generate()
     {
-        // //if....load new scene
-        // if (Input.GetKeyDown(KeyCode.H))//TODO: setup the transition point
-        // {
-        //     transform.Find(generateSceneObject).GetComponent<GenerateScenes>().GenerateScene();
-        // }
-        //
-        // //if....generate tiles
-        // if (sceneIsEmpty)
-        // {
-        //     //bc the scene loads too slow, we should put a small delay at generating the tiles
-        //     //or when the scene is loading, the tile has been generated and when get to the new scene, it is empty
-        //     Invoke("GenerateTile",.1f);
-        //     sceneIsEmpty = false;
-        //     playerIsEmpty = true;
-        // }
-        //
-        // if (playerIsEmpty == true)
-        // {
-        //     Invoke("GeneratePlayer", .2f);
-        //     playerIsEmpty = false;
-        // }
+        if (fileIsEmpty == true)
+        {
+            GenerateASCIIFile();
+            fileIsEmpty = false;
+        }
         
-        //test: I want to generate the tile 
+        //
         if (sceneIsEmpty)
         {
-            transform.Find(generateTileHolder).GetComponent<GenerateTiles>().referenceFile(level);
-            transform.Find(generateTileHolder).GetComponent<GenerateTiles>().InstantiateFromFile(level,tileLength);
-            sceneIsEmpty = false;
+            LevelLoader();
+            gameMode = GameType.Clean;
         }
     }
 
-    //a class to hold the code for calling the class of generating tiles, for make an invoke
-    void GenerateTile()
+    //two main functions that generate have: generate File, Map(UI)
+    void GenerateASCIIFile()
     {
-        //transform.Find(generateTileHolder).GetComponent<GenerateTiles>().GenerateTile(1 + SceneManager.GetActiveScene().buildIndex,
-            //startPositionX,startPositionY,tileLength);
-            transform.Find(generateTileHolder).GetComponent<GenerateTiles>().referenceFile(level);
-            Debug.Log(level.ToString());
+        transform.Find(generateTileHolder).GetComponent<GenerateTiles>().referenceFile(level);
     }
+
+    void LevelLoader()
+    {
+        dustNumLeft = transform.Find(generateTileHolder).GetComponent<GenerateTiles>().InstantiateFromFile(level,tileLength);
+        transform.Find("UIControllerHolder").GetComponent<UIController>().roomUIGenerate(level, dustNumLeft);
+        sceneIsEmpty = false;
+    }
+
+    // //a class to hold the code for calling the class of generating tiles, for make an invoke
+    // void GenerateTile()
+    // {
+    //     //transform.Find(generateTileHolder).GetComponent<GenerateTiles>().GenerateTile(1 + SceneManager.GetActiveScene().buildIndex,
+    //         //startPositionX,startPositionY,tileLength);
+    //         transform.Find(generateTileHolder).GetComponent<GenerateTiles>().referenceFile(level);
+    //         Debug.Log(level.ToString());
+    // }
 
     
     private const string playerControllerHolder = "PlayerControllerHolder";
@@ -146,10 +136,20 @@ public class GameManager : MonoBehaviour
                 //Debug.Log(" detect player move ");
                 transform.Find(playerControllerHolder).GetComponent<playerController>().MoveOrTurn(tileLength);
             }
-        
 
-
+            if (dustNumLeft == 0)
+            {
+                level++;
+                fileIsEmpty = true;
+            }
     }
+    
+    
+    public void RoomUIUpdate()
+    {
+        transform.Find("UIControllerHolder").GetComponent<UIController>().roomUIUpdate(dustNumSolved, dustNumLeft);
+    }
+
     void UnUsed(){}
     void Store(){}
 }

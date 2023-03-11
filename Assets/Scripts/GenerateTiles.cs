@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using System.IO;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -116,9 +117,14 @@ public class GenerateTiles : MonoBehaviour
         }
     }
 
-    public void InstantiateFromFile(int level, float tileLength)
+    private GameObject levelParent;
+    
+    public int InstantiateFromFile(int level, float tileLength)
     {
-        GameObject levelParent = new GameObject("LEVEL" + level.ToString());
+        int dustNum = 0;
+        
+        Destroy(levelParent);
+        levelParent = new GameObject("LEVEL" + level.ToString());
         
         //search file path
         string DATA_PATH = Application.dataPath + "/Levels/" + "Level" + level.ToString() + ".txt";
@@ -153,6 +159,7 @@ public class GenerateTiles : MonoBehaviour
                         GameObject floorDust = Instantiate(dirt);
                         floorDust.transform.position = TilePos(xPos, yPos, tileLength);
                         floorDust.transform.parent = levelParent.transform;
+                        dustNum++;
                         break;
                     case 'p':
                         GameObject floor = Instantiate(tile);
@@ -166,6 +173,8 @@ public class GenerateTiles : MonoBehaviour
                 }
             }
         }
+
+        return dustNum;
     }
 
     private Vector3 TilePos(int xPos, int yPos, float tileLength)
@@ -174,7 +183,9 @@ public class GenerateTiles : MonoBehaviour
         pos = new Vector3(startXPos + xPos * tileLength, startYPos - yPos * tileLength);
         return pos;
     }
+
     
+
 
     // public void InstantiateTile()
     // {

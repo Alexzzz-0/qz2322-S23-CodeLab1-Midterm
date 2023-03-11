@@ -89,7 +89,7 @@ public class player : MonoBehaviour
         moveDis = transform.rotation * new Vector3(moveLength, 0, 0);
         moveToPos = playerPos + moveDis;
         playerRb.MovePosition(moveToPos);
-        Debug.Log("moveDis.x: "+moveDis.x);
+        //Debug.Log("moveDis.x: "+moveDis.x);
         GameManager.instance.transform.Find("PlayerControllerHolder").GetComponent<playerController>()
             .isExecutingMove = false;
         yield return null;
