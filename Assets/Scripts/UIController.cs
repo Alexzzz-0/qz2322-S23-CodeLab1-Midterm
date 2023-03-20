@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI roomNumber;
     public TextMeshProUGUI dustNumber;
     
+    
     public void roomUIGenerate(int level, int dustLeft)
     {
         roomNumber.text = "-ROOM " + level.ToString() + " -";
@@ -18,7 +19,7 @@ public class UIController : MonoBehaviour
 
     public void roomUIUpdate(int dustSolved, int dustLeft)
     {
-        dustNumber.text = "Dust Solved: " + dustSolved.ToString() + "Dust Left: " + dustLeft;
+        dustNumber.text = "Dust Solved: " + dustSolved.ToString() + "\n" + "\n" + "Dust Left: " + dustLeft;
     }
     
 }

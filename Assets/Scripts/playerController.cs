@@ -26,8 +26,10 @@ public class playerController : MonoBehaviour
 
     public bool isExecutingTurn = false;
     public bool isExecutingMove = false;
+
+    private Vector3 moveDis;
     
-    public void MoveOrTurn(float moveLength)
+    public Vector3 MoveOrTurn(float moveLength)
     {
         player = GameObject.FindWithTag("Player");
         
@@ -39,7 +41,7 @@ public class playerController : MonoBehaviour
                 {
                     //Debug.Log("Move Left!");
                     isExecutingMove = true;
-                    StartCoroutine(player.GetComponent<player>().Move(moveLength));
+                    moveDis = player.GetComponent<player>().Move(moveLength);
                 }
             }
             else
@@ -62,7 +64,7 @@ public class playerController : MonoBehaviour
                 {
                     //Debug.Log("Move Right!");
                     isExecutingMove = true;
-                    StartCoroutine(player.GetComponent<player>().Move(moveLength));
+                    moveDis = player.GetComponent<player>().Move(moveLength);
                 }
             }
             else
@@ -85,7 +87,7 @@ public class playerController : MonoBehaviour
                 {
                     //Debug.Log("Move Up!");
                     isExecutingMove = true;
-                    StartCoroutine(player.GetComponent<player>().Move(moveLength));
+                    moveDis = player.GetComponent<player>().Move(moveLength);
                 }
             }
             else
@@ -108,7 +110,7 @@ public class playerController : MonoBehaviour
                 {
                     //Debug.Log("Move Down!");
                     isExecutingMove = true;
-                    StartCoroutine(player.GetComponent<player>().Move(moveLength));
+                    moveDis = player.GetComponent<player>().Move(moveLength);
                 }
             }
             else
@@ -122,6 +124,8 @@ public class playerController : MonoBehaviour
                 }
             }
         }
+
+        return moveDis;
     }
     
 }

@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class dirt : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (other.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player")
         {
-            Debug.Log("Hit A Dust!");
             GameManager.instance.dustNumLeft--;
             GameManager.instance.dustNumSolved++;
             GameManager.instance.RoomUIUpdate();

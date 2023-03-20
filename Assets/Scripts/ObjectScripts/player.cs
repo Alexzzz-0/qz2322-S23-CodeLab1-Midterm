@@ -69,37 +69,41 @@ public class player : MonoBehaviour
         //directly responses to <Gamemanager>().Clean();
         //which is to control it not to assign next task to the player
     }
-    
-    
+
     private Vector3 moveToPos;
     private Vector3 moveDis;
-    public IEnumerator Move( float moveLength)
+
+    public static player plyrInstance;
+
+    private void Start()
+    {
+        Debug.Log("PLayer Singleton");
+        if (plyrInstance == null)
+        {
+            plyrInstance = this;
+            
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
+    public Vector3 Move( float moveLength)
     {
         //Debug.Log("Move Listener!");
-        
-        // moveDis = transform.position + transform.rotation.normalized * Vector3.forward * moveLength;
-        // moveToPos = Vector3.Lerp(transform.position, moveDis, Time.deltaTime*speedMove);
-        // playerRb.MovePosition(moveToPos);
-        // //playerRb.MovePosition(moveDis);
-
+       
         Vector3 playerPos = transform.position;
-        // moveDis = transform.forward * moveLength;
-        // Debug.Log("transform.forward.x: "+transform.forward.x.ToString());
-        // Debug.Log("transform.forwand.y: " + transform.forward.y.ToString());
+     
         moveDis = transform.rotation * new Vector3(moveLength, 0, 0);
         moveToPos = playerPos + moveDis;
         playerRb.MovePosition(moveToPos);
-        //Debug.Log("moveDis.x: "+moveDis.x);
         GameManager.instance.transform.Find("PlayerControllerHolder").GetComponent<playerController>()
             .isExecutingMove = false;
-        yield return null;
 
-        // for (float i = 0; i <= 1; i += speedMove)
-        // {
-        //     moveToPos = Vector3.Lerp(playerPos, playerPos + moveDis, i);
-        //     Debug.Log(moveToPos.x.ToString());
-        //     playerRb.MovePosition(moveToPos);
-        //     yield return null;
-        // }
+        GameManager.instance.CameraMove = true;
+        
+        return moveDis;
     }
 }

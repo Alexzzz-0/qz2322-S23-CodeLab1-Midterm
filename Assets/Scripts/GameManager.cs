@@ -77,6 +77,9 @@ public class GameManager : MonoBehaviour
     public int dustNumLeft;
     public int dustNumSolved;
     
+    public bool CameraMove = false;
+    private Vector3 cameraMovDis;
+    
     private void Start()
     {
         tileLength = tile.transform.GetComponent<Renderer>().bounds.size.x;
@@ -84,7 +87,8 @@ public class GameManager : MonoBehaviour
     
     private const string generateSceneObject = "GenerateSceneHolder";
     private const string generateTileHolder = "GenerateTileHolder";
-
+    
+    
     void Generate()
     {
         if (fileIsEmpty == true)
@@ -97,6 +101,7 @@ public class GameManager : MonoBehaviour
         if (sceneIsEmpty)
         {
             LevelLoader();
+            
             gameMode = GameType.Clean;
         }
     }
@@ -109,8 +114,17 @@ public class GameManager : MonoBehaviour
 
     void LevelLoader()
     {
+        //instantiate the tile map from file
         dustNumLeft = transform.Find(generateTileHolder).GetComponent<GenerateTiles>().InstantiateFromFile(level,tileLength);
+        
+        //display the UI number for this level
         transform.Find("UIControllerHolder").GetComponent<UIController>().roomUIGenerate(level, dustNumLeft);
+        
+        //set the initial position for camera(at player's initial position)
+        Vector3 playerPos = GameObject.FindWithTag("Player").transform.position;
+        Debug.Log(playerPos.ToString());
+        playerPos.z = -10;
+        transform.Find("CameraControllerHolder").GetComponent<CameraController>().CameraLoad(playerPos);
         sceneIsEmpty = false;
     }
 
@@ -134,7 +148,7 @@ public class GameManager : MonoBehaviour
                 Input.GetKeyDown(KeyCode.S))
             {
                 //Debug.Log(" detect player move ");
-                transform.Find(playerControllerHolder).GetComponent<playerController>().MoveOrTurn(tileLength);
+                cameraMovDis = transform.Find(playerControllerHolder).GetComponent<playerController>().MoveOrTurn(tileLength);
             }
 
             if (dustNumLeft == 0)
@@ -142,8 +156,18 @@ public class GameManager : MonoBehaviour
                 level++;
                 fileIsEmpty = true;
             }
+
+            if (CameraMove)
+            {
+                MoveCamera();
+                CameraMove = false;
+            }
     }
-    
+
+    void MoveCamera()
+    {
+        transform.Find("CameraControllerHolder").GetComponent<CameraController>().CameraMove(cameraMovDis);
+    }
     
     public void RoomUIUpdate()
     {

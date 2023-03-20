@@ -123,7 +123,7 @@ public class GenerateTiles : MonoBehaviour
     {
         int dustNum = 0;
         
-        Destroy(levelParent);
+        DestroyImmediate(levelParent);
         levelParent = new GameObject("LEVEL" + level.ToString());
         
         //search file path
@@ -177,6 +177,7 @@ public class GenerateTiles : MonoBehaviour
         return dustNum;
     }
 
+    //create a function to assign position to each item
     private Vector3 TilePos(int xPos, int yPos, float tileLength)
     {
         Vector3 pos;
